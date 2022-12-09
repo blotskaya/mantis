@@ -23,6 +23,7 @@ class MantisHelper:
         wd.find_element_by_xpath("//input[@value='Create New Project']").click()
         self.fill_project_form(project)
         wd.find_element_by_xpath("//input[@value='Add Project']").click()
+        wd.find_element_by_link_text("Proceed").click()
 
     def fill_project_form(self, project):
         wd = self.app.wd
@@ -46,12 +47,24 @@ class MantisHelper:
             self.open_main_page()
             self.open_projects_page()
             self.project_cache = []
-            for row in wd.find_elements_by_css_selector(".row-1, .row-2"):
+            for row in wd.find_elements_by_xpath("//table[@class='width100']")[1].find_elements_by_css_selector(".row-1, .row-2"):
                 cells = row.find_elements_by_tag_name("td")
                 name = cells[0].text
                 description = cells[4].text
                 status = cells[1].text
                 viewstate = cells[3].text
-                self.project_cache.append(Project(name=name, status=status,
-                                                  viewstate=viewstate, description=description))
+                self.project_cache.append(Project(name=name, status=status, viewstate=viewstate, description=description))
         return list(self.project_cache)
+
+    def select_project_by_index(self, index):
+        wd = self.app.wd
+        # select contact
+        wd.find_elements_by_xpath("//table[@class='width100']")[1].find_elements_by_tag_name("a")[index].click()
+
+    def delete_project(self, index):
+        wd = self.app.wd
+        self.open_main_page()
+        self.open_projects_page()
+        self.select_project_by_index(index)
+        wd.find_element_by_xpath("//input[@value='Delete Project']").click()
+        wd.find_element_by_xpath("//input[@value='Delete Project']").click()
