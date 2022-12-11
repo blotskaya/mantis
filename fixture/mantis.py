@@ -59,7 +59,7 @@ class MantisHelper:
     def select_project_by_index(self, index):
         wd = self.app.wd
         # select contact
-        wd.find_elements_by_xpath("//table[@class='width100']")[1].find_elements_by_tag_name("a")[index].click()
+        wd.find_elements_by_xpath("//table[@class='width100']")[1].find_elements_by_css_selector("a[href *= 'manage_proj_edit_page']")[index].click()
 
     def delete_project(self, index):
         wd = self.app.wd

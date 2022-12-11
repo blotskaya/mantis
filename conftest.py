@@ -14,6 +14,9 @@ def load_config(file):
             target = json.load(f)
     return target
 
+@pytest.fixture(scope="session")
+def config(request):
+    return load_config(request.config.getoption("--target"))
 
 @pytest.fixture
 def app(request):
@@ -26,6 +29,10 @@ def app(request):
     fixture.open_home_page()
     fixture.session.ensure_login(username=login_config["username"], password=login_config["password"])
     return fixture
+
+@pytest.fixture(scope="session", autouse = True)
+def configure_server(request, config):
+    install_server_configuration(config['ftp']['host'])
 
 
 @pytest.fixture(scope="session", autouse = True)
