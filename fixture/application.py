@@ -1,9 +1,12 @@
 from selenium import webdriver
 from fixture.session import SessionHelper
 from fixture.mantis import MantisHelper
+from fixture.james import JamesHelper
+from fixture.signup import SignupHelper
+from fixture.mail import MailHelper
 
 class Application:
-    def __init__(self, browser, base_url):
+    def __init__(self, browser, config):
         if browser == "chrome":
             self.wd = webdriver.Chrome()
         elif browser == "firefox":
@@ -14,7 +17,11 @@ class Application:
             raise ValueError("Unrecognized browser %s" % browser)
         self.session = SessionHelper(self)
         self.mantis = MantisHelper(self)
-        self.base_url = base_url
+        self.james = JamesHelper(self)
+        self.signup = SignupHelper(self)
+        self.mail = MailHelper(self)
+        self.config = config
+        self.base_url = config['web']['baseUrl']
 
     def is_valid(self):
         try:
