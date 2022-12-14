@@ -24,6 +24,7 @@ class MantisHelper:
         self.fill_project_form(project)
         wd.find_element_by_xpath("//input[@value='Add Project']").click()
         wd.find_element_by_link_text("Proceed").click()
+        self.project_cache = None
 
     def fill_project_form(self, project):
         wd = self.app.wd
@@ -68,3 +69,4 @@ class MantisHelper:
         self.select_project_by_index(index)
         wd.find_element_by_xpath("//input[@value='Delete Project']").click()
         wd.find_element_by_xpath("//input[@value='Delete Project']").click()
+        self.project_cache = None
