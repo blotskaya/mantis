@@ -1,10 +1,10 @@
 from model.project import Project
 
 def test_add_project(app):
-    old_projects = app.mantis.get_project_list()
+    old_projects = app.soap.get_project_list("administrator", "root")
     project = Project(name="testname14", description="testdescription", status='"30"', viewstate='"10"')
     app.mantis.add_project(project)
-    new_projects = app.mantis.get_project_list()
+    new_projects = app.soap.get_project_list("administrator", "root")
     n = len(old_projects)
     m = 0
     for i in range(n):
