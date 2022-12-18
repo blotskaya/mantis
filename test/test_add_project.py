@@ -1,10 +1,12 @@
 from model.project import Project
 
 def test_add_project(app):
-    old_projects = app.soap.get_project_list("administrator", "root")
-    project = Project(name="testname14", description="testdescription", status='"30"', viewstate='"10"')
+    username = app.config['webadmin']['username']
+    password = app.config['webadmin']['password']
+    old_projects = app.soap.get_project_list(username, password)
+    project = Project(name="testname15", description="testdescription", status='"30"', viewstate='"10"')
     app.mantis.add_project(project)
-    new_projects = app.soap.get_project_list("administrator", "root")
+    new_projects = app.soap.get_project_list(username, password)
     n = len(old_projects)
     m = 0
     for i in range(n):

@@ -23,7 +23,6 @@ class MantisHelper:
         wd.find_element_by_xpath("//input[@value='Create New Project']").click()
         self.fill_project_form(project)
         wd.find_element_by_xpath("//input[@value='Add Project']").click()
-        wd.find_element_by_link_text("Proceed").click()
         self.project_cache = None
 
     def fill_project_form(self, project):
