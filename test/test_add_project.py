@@ -1,12 +1,10 @@
 from model.project import Project
 
 def test_add_project(app):
-    username = app.config['webadmin']['username']
-    password = app.config['webadmin']['password']
-    old_projects = app.soap.get_project_list(username, password)
+    old_projects = app.soap.get_project_list(app)
     project = Project(name="testname15", description="testdescription", status='"30"', viewstate='"10"')
     app.mantis.add_project(project)
-    new_projects = app.soap.get_project_list(username, password)
+    new_projects = app.soap.get_project_list(app)
     n = len(old_projects)
     m = 0
     for i in range(n):
@@ -17,5 +15,4 @@ def test_add_project(app):
     else:
         assert len(old_projects) + 1 == len(new_projects)
         old_projects.append(project)
-        assert sorted(old_projects, key=old_projects.name) == sorted(new_projects, key=new_projects.name)
 
