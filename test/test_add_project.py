@@ -2,7 +2,7 @@ from model.project import Project
 
 def test_add_project(app):
     old_projects = app.soap.get_project_list(app)
-    project = Project(name="testname15", description="testdescription", status='"30"', viewstate='"10"')
+    project = Project(name="testname16", description="testdescription", status='"30"', viewstate='"10"')
     app.mantis.add_project(project)
     new_projects = app.soap.get_project_list(app)
     n = len(old_projects)
@@ -15,4 +15,5 @@ def test_add_project(app):
     else:
         assert len(old_projects) + 1 == len(new_projects)
         old_projects.append(project)
+
 
