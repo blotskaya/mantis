@@ -7,4 +7,5 @@ def test_del_project(app):
     new_projects = app.soap.get_project_list(app)
     assert len(old_projects) - 1 == len(new_projects)
     old_projects.remove(old_projects[index])
+    assert sorted(old_projects, key=lambda x: x.name) == sorted(new_projects, key=lambda x: x.name)
 

@@ -15,5 +15,7 @@ def test_add_project(app):
     else:
         assert len(old_projects) + 1 == len(new_projects)
         old_projects.append(project)
+    assert sorted(old_projects, key=lambda x: x.name) == sorted(new_projects, key=lambda x: x.name)
+
 
 
